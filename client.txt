@@ -1,7 +1,7 @@
 connecting to the server 127.0.1.1 at port 8888
 sending register message John
 received welcome
-hi server
-sendto Mary hello there
+hi server im john
+recvfrom Mary  hello there
 sendto Alice hello there
 terminating client...

@@ -29,10 +29,10 @@ def setup_client(server_ip, port_num, log_file, my_name):
         print "connected to server and registered"
         client_file.write("\nreceived welcome")
         print "waiting for messages..."
-        #sock.settimeout(None)
         while True:
             #user_input = raw_input("your message: ")
-            #print "Your message: ",
+            # Credit to stackoverflow for non-blocking IO implementation
+            # http://stackoverflow.com/questions/3471461/raw-input-and-timeout
             rlist, _, _ = select([sys.stdin], [], [], timeout)
             if rlist:
                 s = sys.stdin.readline()
@@ -40,13 +40,7 @@ def setup_client(server_ip, port_num, log_file, my_name):
                 if s == "exit":
                     break
                 sock.sendto(s, address)
-                #client_file.write("\n" + s)
 
-            #else:
-                #print "No input. Moving on..."
-            # if user_input == "exit":
-            #     break
-            # sock.sendto(user_input, address)
             try:
                 (message, address) = sock.recvfrom(BUFFER_SIZE)
                 if message:

@@ -6,17 +6,6 @@ import argparse
 
 def server_run(sock, server_file):
     BUFFER_SIZE = 1024
-    # host = ''
-    #
-    # # Create UDP socket
-    # sock = socket.socket(socket.AF_INET,
-    #                      socket.SOCK_DGRAM)
-    #
-    # sock.bind((host, port_num))
-    # print "server started on " + socket.gethostbyname(socket.gethostname()) + " at port " + str(port_num) + "..."
-    # server_file = open(log_file, 'w')
-    # server_file.write("server started on " + socket.gethostbyname(socket.gethostname()) + " at port " +
-    #                   str(port_num) + "...")
 
     client_dictionary = {}
     try:
@@ -35,23 +24,17 @@ def server_run(sock, server_file):
             if "sendto" in message:
                 split_on_space = message.split()
                 found_sender = False
-                #print "Iterating over dictionary..."
                 client_name = ""
+
                 for key in client_dictionary:
                     client_port = client_dictionary[key][1]
-                    #print "Client port is: " + str(client_port)
                     if client_port == address[1]:
                         client_name = key
-                        #print "Client name is: " + client_name
                         server_file.write("\n" + message + " from " + client_name)
                         break
 
                 for key in client_dictionary:
-                    #print key, 'corresponds to', client_dictionary[key]
-                    #if key in message:
                     if key == split_on_space[1]:
-                        #print "Key: " + key + " in that key is stored: " + str(client_dictionary[key][0]) + ", " \
-                              #+ str(client_dictionary[key][1])
                         sock.sendto("recvfrom " + client_name + " " + message[7 + len(key):], client_dictionary[key])
                         server_file.write("\nrecvfrom " + client_name + " " + message[7 + len(key):] + " to " + key)
                         found_sender = True
