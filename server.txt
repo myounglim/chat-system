@@ -1,0 +1,10 @@
+server started on 127.0.1.1 at port 8888...
+client connection from host 127.0.0.1 port 47487
+received register Mary from host 127.0.0.1 port 47487
+client connection from host 127.0.0.1 port 55614
+received register John from host 127.0.0.1 port 55614
+sendto Mary hello there from John
+recvfrom John  hello there to Mary
+sendto Alice hello there from John
+Alice not registered with server
+terminating server...
